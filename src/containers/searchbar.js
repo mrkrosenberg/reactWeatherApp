@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeather } from '../actions/index';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +13,7 @@ export default class SearchBar extends Component {
         // binds context of searchBar component state to onInputChange function
         // overwriting the local method with a new one bound to the context of SearchBar container
         this.onInputChange = this.onInputChange.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     };
 
     onInputChange(event) {
@@ -23,7 +24,9 @@ export default class SearchBar extends Component {
     onFormSubmit(event) {
         event.preventDefault();
 
-        // we need an api call to fetch weather data
+        // api call
+        this.props.fetchWeather(this.state.term);
+        this.setState({ term: '' });
     };
 
     render() {
@@ -44,3 +47,12 @@ export default class SearchBar extends Component {
         );
     };
 };
+
+function mapDispatchToProps(dispatch) {
+    // makes sure the action is "dispatched" throughout our application
+    return bindActionCreators({fetchWeather}, dispatch);
+};
+
+// mapDispatchToProps goes in as second argument
+// pass null in as an argument because we aren't concerned with state tracked by redux
+export default connect(null, mapDispatchToProps)(SearchBar);

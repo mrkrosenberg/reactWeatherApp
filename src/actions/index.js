@@ -11,6 +11,8 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 // action creator that is going to make an api call to weathermap.org
 export function fetchWeather(city) {
 
+    console.log(ROOT_URL);
+
     const url = `${ROOT_URL}&q=${city},us`
     const request = axios.get(url);
 
