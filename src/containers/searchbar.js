@@ -49,7 +49,7 @@ class SearchBar extends Component {
 };
 
 function mapDispatchToProps(dispatch) {
-    // makes sure the action is "dispatched" throughout our application
+    // makes sure the action is "dispatched" to middleware and reducer to be accessed by application state
     return bindActionCreators({fetchWeather}, dispatch);
 };
 
